@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Chat-Ai/static/css/main.ee393cac.css",
-    "main.js": "/Chat-Ai/static/js/main.b8307459.js",
+    "main.css": "/Chat-Ai/static/css/main.2358f982.css",
+    "main.js": "/Chat-Ai/static/js/main.bb2f827f.js",
     "index.html": "/Chat-Ai/index.html",
-    "main.ee393cac.css.map": "/Chat-Ai/static/css/main.ee393cac.css.map",
-    "main.b8307459.js.map": "/Chat-Ai/static/js/main.b8307459.js.map"
+    "main.2358f982.css.map": "/Chat-Ai/static/css/main.2358f982.css.map",
+    "main.bb2f827f.js.map": "/Chat-Ai/static/js/main.bb2f827f.js.map"
   },
   "entrypoints": [
-    "static/css/main.ee393cac.css",
-    "static/js/main.b8307459.js"
+    "static/css/main.2358f982.css",
+    "static/js/main.bb2f827f.js"
   ]
 }
