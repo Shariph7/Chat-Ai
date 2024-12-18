@@ -108,7 +108,7 @@ function ChatApp() {
     },
     {
       title: "IDEA",
-      description: "Explore what happening in AI World!",
+      description: "Explore what is currently happening in AI World nowadays!",
     },
     {
       title: "PROJECT",
@@ -139,19 +139,7 @@ function ChatApp() {
 
           {/* Cards Section (Only show if no active chat) */}
           {messages.length === 0 ? (
-            <div
-              className="cards"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-                gap: "20px",
-                justifyItems: "center",
-                alignItems: "center",
-                flexGrow: 1,
-                padding: "20px",
-                textAlign: "center",
-              }}
-            >
+            <div className="cards">
               {cardContents.map((card, index) => (
                 <div
                   key={index}
@@ -179,7 +167,7 @@ function ChatApp() {
             </div>
           ) : (
             <div
-              className="cards"
+              className="messages"
               style={{
                 flexGrow: 1,
                 overflowY: "auto",
