@@ -9,10 +9,7 @@ const genAi = new GoogleGenerativeAI("AIzaSyC09fXG8iduP7azHLz3j1j3DxHvg84P2Z4");
 const model = genAi.getGenerativeModel({ model: "gemini-1.5-pro" });
 
 function ChatApp() {
-  const [messages, setMessages] = useState([
-    { sender: "user", text: "Hello Chat Pro+" },
-    { sender: "ai", text: "Hi, How can i assist you?" },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messageEndRef = useRef(null);
@@ -99,6 +96,26 @@ function ChatApp() {
     },
   };
 
+  // Define card content dynamically
+  const cardContents = [
+    {
+      title: "GEMINI AI",
+      description: "Explore the GEMINI AI Created by Google using LLM",
+    },
+    {
+      title: "GITHUB REPO",
+      description: "Explore The Full Repository of this Application",
+    },
+    {
+      title: "IDEA",
+      description: "Explore what happening in AI World!",
+    },
+    {
+      title: "PROJECT",
+      description: "Explore the Some Ongoing projects hereby!",
+    },
+  ];
+
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       {/* Sidebar */}
@@ -108,7 +125,10 @@ function ChatApp() {
       </div>
 
       {/* Main Section */}
-      <div className="main">
+      <div
+        className="main"
+        style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
+      >
         <div className="content">
           <div className="hello-section">
             <h1>
@@ -116,74 +136,120 @@ function ChatApp() {
             </h1>
             <div>Hello, how can I help you?</div>
           </div>
-          <div
-            className="cards"
-            style={{
-              flexGrow: 1,
-              overflowY: "auto",
-              padding: "20px",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`${
-                  message.sender === "user" ? "justify-end" : "justify-start"
-                }`}
-                style={{
-                  display: "flex",
-                  justifyContent:
-                    message.sender === "user" ? "flex-end" : "flex-start",
-                  marginBottom: "10px",
-                }}
-              >
+
+          {/* Cards Section (Only show if no active chat) */}
+          {messages.length === 0 ? (
+            <div
+              className="cards"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+                gap: "20px",
+                justifyItems: "center",
+                alignItems: "center",
+                flexGrow: 1,
+                padding: "20px",
+                textAlign: "center",
+              }}
+            >
+              {cardContents.map((card, index) => (
                 <div
+                  key={index}
                   style={{
-                    maxWidth: "70%",
-                    padding: "10px",
-                    borderRadius: "10px",
-                    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-                    backgroundColor:
-                      message.sender === "user" ? "#007BFF" : "#EFEFEF",
-                    color: message.sender === "user" ? "#fff" : "#333",
+                    width: "100%",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    boxShadow: "0 6px 15px rgba(0, 0, 0, 0.1)",
+                    backgroundColor: "#212529",
+                    color: "white",
+                    cursor: "pointer",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  onClick={() => console.log(`Card ${index + 1} clicked`)}
+                >
+                  <b><h1>{card.title}</h1></b>
+                  <p>{card.description}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div
+              className="cards"
+              style={{
+                flexGrow: 1,
+                overflowY: "auto",
+                padding: "10px",
+                display: "flex",
+                flexDirection: "column",
+                marginBottom: "55px",
+              }}
+            >
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`${
+                    message.sender === "user" ? "justify-end" : "justify-start"
+                  }`}
+                  style={{
+                    display: "flex",
+                    justifyContent:
+                      message.sender === "user" ? "flex-end" : "flex-start",
+                    marginBottom: "10px",
                   }}
                 >
-                  {message.sender === "user" ? (
-                    message.text
-                  ) : (
-                    <ReactMarkdown
-                      components={MarkdownComponent}
-                      className={`prose ${
-                        message.isGenerating ? "typing-animation" : ""
-                      }`}
-                    >
-                      {message.text || "Thinking..."}
-                    </ReactMarkdown>
-                  )}
+                  <div
+                    style={{
+                      maxWidth: "70%",
+                      padding: "10px",
+                      borderRadius: "10px",
+                      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                      backgroundColor:
+                        message.sender === "user" ? "#007BFF" : "#212529",
+                      color: message.sender === "user" ? "#FFFFFF" : "#F8F9FA",
+                    }}
+                  >
+                    {message.sender === "user" ? (
+                      message.text
+                    ) : (
+                      <ReactMarkdown
+                        components={MarkdownComponent}
+                        className={`prose ${message.isGenerating ? "typing-animation" : ""}`}
+                      >
+                        {message.text || "Thinking..."}
+                      </ReactMarkdown>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-{isTyping && (
-  <div className="message-row ai-message">
-    <div className="typing-bubble">
-      <div className="typing-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div>
-)}
+              {isTyping && (
+                <div className="message-row ai-message">
+                  <div className="typing-bubble">
+                    <div className="typing-dots">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
-            <div ref={messageEndRef} />
-          </div>
+              <div ref={messageEndRef} />
+            </div>
+          )}
         </div>
 
         {/* Footer */}
-        <form className="footer" onSubmit={handleSubmit}>
+        <form
+          className="footer"
+          onSubmit={handleSubmit}
+          style={{ display: "flex", backgroundColor: "#212529" }}
+        >
           <input
             type="text"
             value={input}
@@ -199,12 +265,11 @@ function ChatApp() {
           <button
             type="submit"
             style={{
-              padding: "12px 40px",
+              padding: "12px 30px",
               backgroundColor: "#007BFF",
               color: "white",
               border: "none",
               borderRadius: "8px",
-              marginLeft: "10px",
               cursor: "pointer",
             }}
           >
