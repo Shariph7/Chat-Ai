@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import Navbar from './Component/NavBar';
 
 const genAi = new GoogleGenerativeAI("AIzaSyC09fXG8iduP7azHLz3j1j3DxHvg84P2Z4");
 const model = genAi.getGenerativeModel({ model: "gemini-1.5-pro" });
@@ -123,7 +124,8 @@ function ChatApp() {
         <h1>Chat Pro+</h1>
         <button onClick={() => setMessages([])}>+ New Chat</button>
       </div>
-
+      
+      <Navbar />
       {/* Main Section */}
       <div
         className="main"
