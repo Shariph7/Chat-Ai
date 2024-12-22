@@ -39,6 +39,24 @@ function ChatApp() {
     e.preventDefault();
     if (!input.trim()) return;
 
+    const questions = [
+      "who made you?",
+      "who created you?",
+      "who developed you?"
+    ];
+
+    const predefinedAnswer = "I was made by Google, but integrated by Shariph Thapa.";
+
+    const lowerInput = input.trim().toLowerCase();
+    if (questions.some((question) => lowerInput.includes(question))) {
+      setMessages((prev) => [
+        ...prev,
+        { sender: "ai", text: predefinedAnswer },
+      ]);
+      setInput("");
+      return;
+    }
+
     setMessages((prev) => [...prev, { sender: "user", text: input }]);
     setInput("");
     setIsTyping(true);
@@ -97,36 +115,95 @@ function ChatApp() {
     },
   };
 
-  // Define card content dynamically
   const cardContents = [
     {
       title: "GEMINI AI",
       description: "Explore the GEMINI AI Created by Google using LLM",
+      link: "https://ai.google.dev/gemini-api/docs"
     },
     {
       title: "GITHUB REPO",
       description: "Explore The Full Repository of this Application",
+      link: "https://github.com/Shariph7/Chat-Ai"
     },
     {
       title: "IDEA",
-      description: "Explore what is currently happening in AI World nowadays!",
+      description: "Want Some React Component for Best UI Design?",
+      link: "https://ui.aceternity.com/components",
     },
     {
-      title: "PROJECT",
-      description: "Explore the Some Ongoing projects hereby!",
+      title: "NEW AI TOOLS",
+      description: "Explore Some New AI Tools in the Market!",
+      link: "https://www.toolify.ai/",
     },
   ];
 
+  const buttonStyle = {
+    backgroundColor: "#333",
+    color: "#fff",
+    border: "none",
+    borderRadius: "8px",
+    padding: "12px 24px",
+    fontSize: "16px",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    width: "100%",
+    maxWidth: "300px",
+    margin: "10px auto",
+    display: "block",
+    textAlign: "left",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  };
+  
+  const handleMouseOver = (e) => {
+    e.target.style.backgroundColor = "#444";
+  };
+  
+  const handleMouseOut = (e) => {
+    e.target.style.backgroundColor = "#333";
+  };
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      {/* Sidebar */}
-      <div className="sidebar">
-        <h1>Chat Pro+</h1>
+      <div className="sidebar"><br></br><br></br><br></br>
         <button onClick={() => setMessages([])}>+ New Chat</button>
+        <button
+      style={buttonStyle}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      🥅 OverView
+    </button>
+    <button
+      style={buttonStyle}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      👤 User
+    </button>
+    <button
+      style={buttonStyle}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      💬 Messages
+    </button>
+    <button
+      style={buttonStyle}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      🅰️ Activity
+    </button>
+    <button
+      style={buttonStyle}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      📈 Statistics
+    </button>
       </div>
       
       <Navbar />
-      {/* Main Section */}
       <div
         className="main"
         style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
@@ -139,7 +216,6 @@ function ChatApp() {
             <div>Hello, how can I help you?</div>
           </div>
 
-          {/* Cards Section (Only show if no active chat) */}
           {messages.length === 0 ? (
             <div className="cards">
               {cardContents.map((card, index) => (
@@ -160,7 +236,7 @@ function ChatApp() {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onClick={() => console.log(`Card ${index + 1} clicked`)}
+                  onClick={() => window.open(card.link, "_blank")}
                 >
                   <b><h1>{card.title}</h1></b>
                   <p>{card.description}</p>
@@ -247,20 +323,23 @@ function ChatApp() {
             placeholder="Chat with Chat Pro+"
             style={{
               flex: 1,
-              padding: "10px",
+              padding: "17px",
               border: "none",
               borderRadius: "8px",
+              marginRight: "5px"
             }}
           />
           <button
             type="submit"
             style={{
-              padding: "12px 30px",
+              padding: "17px 25px",
               backgroundColor: "#007BFF",
               color: "white",
               border: "none",
               borderRadius: "8px",
               cursor: "pointer",
+              marginLeft: "5px",
+              marginRight: "5px"
             }}
           >
             <Send size={20} />
