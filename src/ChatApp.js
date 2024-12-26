@@ -139,9 +139,11 @@ function ChatApp() {
   ];
 
   const buttonStyle = {
-    backgroundColor: "#333",
-    color: "#fff",
     border: "none",
+    borderTop: "none",
+    borderBottom: "none",
+    backgroundColor: "#1b1b1e",
+    color: "#fff",
     borderRadius: "8px",
     padding: "12px 24px",
     fontSize: "16px",
@@ -152,15 +154,15 @@ function ChatApp() {
     margin: "10px auto",
     display: "block",
     textAlign: "left",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    boxShadow: "none",
   };
-  
+
   const handleMouseOver = (e) => {
-    e.target.style.backgroundColor = "#444";
+    e.target.style.backgroundColor = "#595959";
   };
   
   const handleMouseOut = (e) => {
-    e.target.style.backgroundColor = "#333";
+    e.target.style.backgroundColor = "#1b1b1e";
   };
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
@@ -203,7 +205,7 @@ function ChatApp() {
     </button>
       </div>
       
-      <Navbar />
+      <Navbar setMessages={setMessages} />
       <div
         className="main"
         style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
@@ -211,7 +213,7 @@ function ChatApp() {
         <div className="content">
           <div className="hello-section">
             <h1>
-              Chat Pro+ <span>Plus</span>
+              Chat AI
             </h1>
             <div>Hello, how can I help you?</div>
           </div>
@@ -222,9 +224,9 @@ function ChatApp() {
                 <div
                   key={index}
                   style={{
-                    width: "100%",
+                    width: "95%",
                     padding: "20px",
-                    borderRadius: "12px",
+                    borderRadius: "20px",
                     boxShadow: "0 6px 15px rgba(0, 0, 0, 0.1)",
                     backgroundColor: "#212529",
                     color: "white",
@@ -309,8 +311,6 @@ function ChatApp() {
             </div>
           )}
         </div>
-
-        {/* Footer */}
         <form
           className="footer"
           onSubmit={handleSubmit}
